@@ -5,8 +5,8 @@ EXPOSE 60010
 EXPOSE 60020
 RUN apt-get update
 RUN apt-get install -y curl wget
-RUN echo "deb [arch=amd64] http://archive.cloudera.com/cdh4/ubuntu/lucid/amd64/cdh lucid-cdh4 contrib\n" \
-         "deb-src http://archive.cloudera.com/cdh4/ubuntu/lucid/amd64/cdh lucid-cdh4 contrib" >> /etc/apt/sources.list.d/cloudera.list
+RUN echo "deb [arch=amd64] http://archive.cloudera.com/cdh4/ubuntu/lucid/amd64/cdh lucid-cdh4.3.0 contrib\n" \
+         "deb-src http://archive.cloudera.com/cdh4/ubuntu/lucid/amd64/cdh lucid-cdh4.3.0 contrib" >> /etc/apt/sources.list.d/cloudera.list
 RUN apt-get update
 RUN mkdir /usr/local/java && \
     wget --no-cookies \
@@ -23,5 +23,8 @@ RUN echo "Package: *\n" \
     "Pin-Priority: 501" >> /etc/apt/preferences.d/cloudera.pref
 RUN curl -s http://archive.cloudera.com/cdh4/ubuntu/precise/amd64/cdh/archive.key | sudo apt-key add -
 RUN apt-get install -y --force-yes hbase hbase-master hbase-thrift
+RUN mkdir /hadoop-data
+RUN chown hbase:hbase /hadoop-data
 ADD etc/ /etc
+ADD usr/ /usr
 
