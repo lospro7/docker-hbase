@@ -1,6 +1,8 @@
 #!/bin/bash
 while true
 do
+    echo "Waiting for HBase master\n"
+
     nc -z localhost 60010
     if [ $? == 0 ]; then
         break
