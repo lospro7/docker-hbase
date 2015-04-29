@@ -1,2 +1,12 @@
 #!/bin/bash
+while true
+do
+    nc -z localhost 60010
+    if [ $? == 0 ]; then
+        break
+    fi
+
+    sleep 5
+done
+
 /usr/lib/hbase/bin/hbase thrift start
